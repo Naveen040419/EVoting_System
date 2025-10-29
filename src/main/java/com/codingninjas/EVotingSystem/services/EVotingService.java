@@ -104,20 +104,7 @@ public class EVotingService {
     }
 
     public ElectionChoice findElectionWinner(String electionName) {
-        Election election = findElectionByName(electionName);
-        List<ElectionChoice> choices = electionChoiceRepository.findByElection(election);
-
-        ElectionChoice winner = null;
-        long maxVotes = -1;
-
-        for (ElectionChoice choice : choices) {
-            long votes = voteRepository.countByElectionChoice(choice);
-            if (votes > maxVotes) {
-                maxVotes = votes;
-                winner = choice;
-            }
-        }
-
-        return winner;
-    }
+    Election election = findElectionByName(electionName);
+    return electionChoiceRepository.findElectionChoiceWithMaxVotes(election.getId());
+    }  
 }
