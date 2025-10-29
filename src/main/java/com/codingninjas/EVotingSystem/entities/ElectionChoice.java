@@ -1,40 +1,55 @@
 package com.codingninjas.EVotingSystem.entities;
 
 import jakarta.persistence.*;
-import org.springframework.data.repository.cdi.Eager;
+import java.util.List;
 
 @Entity
+@Table(name = "election_choice")
 public class ElectionChoice {
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long id;
-	
-	private String name;
 
-	@ManyToOne(cascade=CascadeType.ALL)
-	private Election election;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
-	public long getId() {
-		return id;
-	}
+    @Column(nullable = false)
+    private String name;
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "election_id", nullable = false)
+    private Election election;
 
-	public String getName() {
-		return name;
-	}
+    @OneToMany(mappedBy = "electionChoice")
+    private List<Vote> votes;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public Election getElection() {
-		return election;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public void setElection(Election election) {
-		this.election = election;
-	}
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Election getElection() {
+        return election;
+    }
+
+    public void setElection(Election election) {
+        this.election = election;
+    }
+
+    public List<Vote> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(List<Vote> votes) {
+        this.votes = votes;
+    }
 }

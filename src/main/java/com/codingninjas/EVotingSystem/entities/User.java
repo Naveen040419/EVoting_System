@@ -1,21 +1,20 @@
 package com.codingninjas.EVotingSystem.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "user")
 public class User {
- 
-    // declare the attributes here
 
     @Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
-	private long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
+    @Column(unique = true, nullable = false)
+    private String name;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Vote vote;
 
     public long getId() {
         return id;
@@ -33,4 +32,11 @@ public class User {
         this.name = name;
     }
 
+    public Vote getVote() {
+        return vote;
+    }
+
+    public void setVote(Vote vote) {
+        this.vote = vote;
+    }
 }

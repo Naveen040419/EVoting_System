@@ -8,5 +8,5 @@ import com.codingninjas.EVotingSystem.entities.Election;
 
 public interface ElectionRepository extends JpaRepository<Election, Long> {
 
-
+    Optional<Election> findByName(String name);
 }

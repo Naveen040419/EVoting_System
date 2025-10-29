@@ -1,48 +1,56 @@
 package com.codingninjas.EVotingSystem.entities;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "vote")
 public class Vote {
 
-	// declare the attributes here
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-	public long getId() {
-		return id;
-	}
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "election_id", nullable = false)
+    private Election election;
 
-	public User getUser() {
-		return user;
-	}
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "choice_id", nullable = false)
+    private ElectionChoice electionChoice;
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public Election getElection() {
-		return election;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public void setElection(Election election) {
-		this.election = election;
-	}
+    public User getUser() {
+        return user;
+    }
 
-	public ElectionChoice getElectionChoice() {
-		return electionChoice;
-	}
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-	public void setElectionChoice(ElectionChoice electionChoice) {
-		this.electionChoice = electionChoice;
-	}
+    public Election getElection() {
+        return election;
+    }
 
+    public void setElection(Election election) {
+        this.election = election;
+    }
+
+    public ElectionChoice getElectionChoice() {
+        return electionChoice;
+    }
+
+    public void setElectionChoice(ElectionChoice electionChoice) {
+        this.electionChoice = electionChoice;
+    }
 }
